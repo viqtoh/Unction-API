@@ -35,4 +35,4 @@ def login(request,username,password):
 			ret ='inactive'
 	else:
 		ret = 'incorrect'
-	return HttpResponse(ret)
+	return Response(ret)
