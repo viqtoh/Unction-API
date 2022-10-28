@@ -44,7 +44,7 @@ regex==2021.7.6
 reportlab==3.6.3
 requests==2.24.0
 ruamel-yaml==0.15.87
-selenium==4.0.0
+selenium==3.4.0
 six==1.16.0
 sniffio==1.2.0
 sorl-thumbnail==12.7.0
@@ -54,7 +54,7 @@ tqdm==4.51.0
 trio==0.19.0
 trio-websocket==0.9.2
 typing-extensions==4.0.0
-urllib3==1.26.7
+urllib3==1.26
 webencodings==0.5.1
 whitenoise==6.2.0
 wsproto==1.0.0
