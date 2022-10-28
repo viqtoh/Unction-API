@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from django.shortcuts import render, HttpResponse
+from django.contrib.auth import authenticate, login
 from rest_framework import viewsets
 from .serializers import DataSerialzer
 from .models import user
@@ -23,3 +24,15 @@ def CreateUser(request,username,password,firstname,lastname,mobile,address,state
 	newUser.country = country
 	newUser.save()
 	return HttpResponse("Successful")
+
+def login(request,username,password):
+	authUser = authenticate(username=username,password=password)
+	if authUser is not None:
+		if authUser.is_active:
+			login(request, user,password)
+			ret = 'logged'
+		else:
+			ret ='inactive'
+	else:
+		ret = 'incorrect'
+	return HttpResponse(ret)
