@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from django.shortcuts import render, HttpResponse
+from django.http import request
 from rest_framework.response import Response
 from django.contrib.auth import authenticate, login
 from rest_framework import viewsets
@@ -34,7 +35,7 @@ def login(request,username,password):
 	authUser = authenticate(username=username,password=password)
 	if authUser is not None:
 		if authUser.is_active:
-			login(request, user,password)
+			login(request._request, user,password)
 			ret = 'logged'
 		else:
 			ret ='inactive'
