@@ -7,6 +7,8 @@ from django.contrib.auth import authenticate, login
 from rest_framework import viewsets
 from .serializers import DataSerialzer
 from .models import user
+from rest_framework.decorators import api_view, renderer_classes
+from rest_framework.renderers import JSONRenderer, TemplateHTMLRenderer
 
 
 class DataViewSet(viewsets.ModelViewSet):
@@ -26,6 +28,8 @@ def CreateUser(request,username,password,firstname,lastname,mobile,address,state
 	newUser.save()
 	return HttpResponse("Successful")
 
+@api_view(('GET',))
+@renderer_classes((JSONRenderer,))
 def login(request,username,password):
 	authUser = authenticate(username=username,password=password)
 	if authUser is not None:
