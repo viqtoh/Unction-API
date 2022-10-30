@@ -58,7 +58,7 @@ def loginView(request,username,password):
 
 
 
-@api_view(('GET',))
+@api_view(('POST',))
 @renderer_classes((JSONRenderer,))
 def checkAuth(request):
 	if request._request.user.is_authenticated:
