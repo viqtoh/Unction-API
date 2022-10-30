@@ -16,18 +16,28 @@ class DataViewSet(viewsets.ModelViewSet):
 	queryset = user.objects.all().order_by('id')
 	serializer_class = DataSerialzer
 		
-
+@api_view(('POST',))
+@renderer_classes((JSONRenderer,))
 def CreateUser(request,username,password,firstname,lastname,mobile,address,state,country):
-	newUser = user.objects.create_user(username=username,password=password)
-	newUser.save()
-	newUser.firstname=firstname
-	newUser.lastname=lastname
-	newUser.mobile = mobile
-	newUser.address=address
-	newUser.state = state
-	newUser.country = country
-	newUser.save()
-	return HttpResponse("Successful")
+	username = username.lower()
+	try:
+		newUser = user.objects.create_user(username=username,password=password)
+		newUser.save()
+		newUser.firstname=firstname
+		newUser.lastname=lastname
+		newUser.mobile = mobile
+		newUser.address=address
+		newUser.state = state
+		newUser.country = country
+		newUser.save()
+		ret = 'successful'
+	except:
+		try:
+			newUser.delete()
+		except:
+			pass
+		ret = 'failed'
+	return Response(ret)
 
 @api_view(('GET',))
 @renderer_classes((JSONRenderer,))
@@ -41,4 +51,15 @@ def login(request,username,password):
 			ret ='inactive'
 	else:
 		ret = 'incorrect'
+	return Response(ret)
+
+
+
+@api_view(('GET',))
+@renderer_classes((JSONRenderer,))
+def checkAuth(request):
+	if request.user.is_authenticated:
+		ret = 'logged'
+	else:
+		ret = 'no'
 	return Response(ret)
