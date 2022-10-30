@@ -64,6 +64,7 @@ def checkAuth(request):
 		print (request._request.user)
 	else:
 		ret = 'no'
+		print (request._request.user)
 	return Response(ret)
 
 @api_view(('GET',))
