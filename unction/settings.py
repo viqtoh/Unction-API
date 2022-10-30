@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'phonenumbers', 
     'phonenumber_field', 
     'rest_framework',
+    'rest_framework.authtoken',
 
     #created
     'MainApi',
@@ -76,6 +77,16 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'unction.wsgi.application'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+               'rest_framework.authentication.TokenAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES':(
+                'rest_framework.permissions.IsAuthenticated',
+    ),
+
+}
 
 
 # Database

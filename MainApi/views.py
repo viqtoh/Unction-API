@@ -10,6 +10,7 @@ from .serializers import DataSerialzer
 from .models import user
 from rest_framework.decorators import api_view, renderer_classes
 from rest_framework.renderers import JSONRenderer, TemplateHTMLRenderer
+from rest_framework.authtoken.models import Token
 
 
 class DataViewSet(viewsets.ModelViewSet):
@@ -46,7 +47,8 @@ def loginView(request,username,password):
 	if authUser is not None:
 		if authUser.is_active:
 			login(request._request,authUser)
-			print(request._request.user)
+			print(request._request.META.get('HTTP_AUTHORIZATION'))
+			print(Token.objects.filter(user=authUser).first().key)
 			ret = 'logged'
 		else:
 			ret ='inactive'

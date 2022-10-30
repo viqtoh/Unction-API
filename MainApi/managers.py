@@ -1,5 +1,6 @@
 from django.contrib.auth.base_user import BaseUserManager
 from django.utils.translation import ugettext_lazy as _
+from rest_framework.authtoken.models import Token
 
 
 class CustomUserManager(BaseUserManager):
@@ -19,6 +20,8 @@ class CustomUserManager(BaseUserManager):
         extra_fields.setdefault('is_superuser', False)
         extra_fields.setdefault('is_active', False)
         user.save()
+        token =Token.objects.create(user=user)
+        token.save()
         return user
 
     def create_superuser(self, username, password, **extra_fields):
