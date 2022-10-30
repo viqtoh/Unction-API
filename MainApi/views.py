@@ -40,7 +40,7 @@ def CreateUser(request,username,password,firstname,lastname,mobile,address,state
 		ret = 'failed'
 	return Response(ret)
 
-@api_view(('GET',))
+@api_view(('POST',))
 @renderer_classes((JSONRenderer,))
 def loginView(request,username,password):
 	authUser = authenticate(username=username,password=password)
