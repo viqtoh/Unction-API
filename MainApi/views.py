@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from django.shortcuts import render, HttpResponse
 from django.http import request
 from rest_framework.response import Response
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from rest_framework import viewsets
 from .serializers import DataSerialzer
 from .models import user
@@ -63,3 +63,9 @@ def checkAuth(request):
 	else:
 		ret = 'no'
 	return Response(ret)
+
+@api_view(('GET',))
+@renderer_classes((JSONRenderer,))
+def logoutView(request):
+	logout(request._request)
+	return Response('successful')
