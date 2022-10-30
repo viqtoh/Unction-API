@@ -37,3 +37,6 @@ class user(AbstractUser):
 		if self.id:
 			force_update = True
 		super(user, self).save(force_update=force_update)
+
+	def __str__(self):
+		return(self.username)

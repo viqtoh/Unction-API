@@ -41,11 +41,12 @@ def CreateUser(request,username,password,firstname,lastname,mobile,address,state
 
 @api_view(('GET',))
 @renderer_classes((JSONRenderer,))
-def login(request,username,password):
+def loginView(request,username,password):
 	authUser = authenticate(username=username,password=password)
 	if authUser is not None:
 		if authUser.is_active:
-			login(request._request, user,password)
+			login(request._request,authUser)
+			print(request._request.user)
 			ret = 'logged'
 		else:
 			ret ='inactive'
@@ -58,8 +59,9 @@ def login(request,username,password):
 @api_view(('GET',))
 @renderer_classes((JSONRenderer,))
 def checkAuth(request):
-	if request.user.is_authenticated:
+	if request._request.user.is_authenticated:
 		ret = 'logged'
+		print (request._request.user)
 	else:
 		ret = 'no'
 	return Response(ret)
