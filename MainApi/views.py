@@ -6,16 +6,31 @@ from django.http import request
 from rest_framework.response import Response
 from django.contrib.auth import authenticate, login, logout
 from rest_framework import viewsets
-from .serializers import DataSerialzer
+from .serializers import DataSerializer, UserSerializer
 from .models import user
-from rest_framework.decorators import api_view, renderer_classes
+from rest_framework.decorators import api_view, renderer_classes, authentication_classes, permission_classes
+
 from rest_framework.renderers import JSONRenderer, TemplateHTMLRenderer
 from rest_framework.authtoken.models import Token
+from django.core.exceptions import ObjectDoesNotExist
 
 
 class DataViewSet(viewsets.ModelViewSet):
 	queryset = user.objects.all().order_by('id')
-	serializer_class = DataSerialzer
+	serializer_class = DataSerializer
+
+
+@api_view(('POST',))
+@renderer_classes((JSONRenderer,))
+def getUser(request):
+	token='null'
+	token = request.META.get('HTTP_AUTHORIZATION')
+	try:
+		Iuser = Token.objects.get(key=token).user
+		serialized = UserSerializer(Iuser)
+		return Response(serialized.data)
+	except ObjectDoesNotExist:
+		return Response('no')
 		
 @api_view(('POST',))
 @renderer_classes((JSONRenderer,))
@@ -42,12 +57,14 @@ def CreateUser(request,username,password,firstname,lastname,mobile,address,state
 
 @api_view(('POST',))
 @renderer_classes((JSONRenderer,))
+@authentication_classes([])
+@permission_classes([])
 def loginView(request,username,password):
 	authUser = authenticate(username=username,password=password)
 	if authUser is not None:
 		if authUser.is_active:
 			login(request._request,authUser)
-			print(request._request.META.get('HTTP_AUTHORIZATION'))
+			print(request.META.get('HTTP_AUTHORIZATION'))
 			print(Token.objects.filter(user=authUser).first().key)
 			ret = 'logged'
 		else:
