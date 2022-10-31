@@ -30,7 +30,7 @@ def getUser(request):
 		serialized = UserSerializer(Iuser)
 		return Response(serialized.data)
 	except ObjectDoesNotExist:
-		return Response('no')
+		return Response(token +'no')
 		
 @api_view(('POST',))
 @renderer_classes((JSONRenderer,))
