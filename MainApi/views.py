@@ -67,6 +67,7 @@ def CreateUser(request):
 		newUser.mobile = mobile
 		newUser.email =email
 		newUser.gender = gender
+		newUser.DOB = date
 		newUser.address=address
 		newUser.state = state
 		newUser.country = country
