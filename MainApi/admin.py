@@ -12,7 +12,7 @@ class userAdmin(UserAdmin):
 	list_display=('username','firstname','lastname','email')
 	add_fieldsets = (
 			('Personal Information',{
-				'fields':('profilePic','username','is_superuser','email','firstname','lastname',)
+				'fields':('profilePic','username','is_superuser','email','firstname','lastname','DOB',)
 				}),
 			('Contact Information',{
 				'fields':('address','state','country','mobile')
@@ -20,7 +20,7 @@ class userAdmin(UserAdmin):
 			)
 	fieldsets = (
 		('Personal Information',{
-				'fields':('profilePic','username','is_superuser','email','firstname','lastname',)
+				'fields':('profilePic','username','is_superuser','email','firstname','lastname','DOB',)
 				}),
 			('Contact Information',{
 				'fields':('address','state','country','mobile')
