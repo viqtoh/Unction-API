@@ -53,6 +53,7 @@ def CreateUser(request):
 	mobile = data['mobile']
 	address = data['address']
 	state = data['state']
+	email = data['email']
 	country = data['country']
 
 	username = username.lower()
@@ -62,6 +63,7 @@ def CreateUser(request):
 		newUser.firstname=firstname
 		newUser.lastname=lastname
 		newUser.mobile = mobile
+		newUser.email =email
 		newUser.address=address
 		newUser.state = state
 		newUser.country = country
