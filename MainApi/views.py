@@ -55,25 +55,25 @@ def CreateUser(request):
 	state = data['state']
 	country = data['country']
 
-#	username = username.lower()
-#	try:
-#		newUser = user.objects.create_user(username=username,password=password)
-#		newUser.save()
-#		newUser.firstname=firstname
-#		newUser.lastname=lastname
-#		newUser.mobile = mobile
-#		newUser.address=address
-#		newUser.state = state
-#		newUser.country = country
-#		newUser.save()
-#		ret = 'successful'
-#	except:
-#		try:
-#			newUser.delete()
-#		except:
-#			pass
-#		ret = 'failed'
-	return Response(data)
+	username = username.lower()
+	try:
+		newUser = user.objects.create_user(username=username,password=password)
+		newUser.save()
+		newUser.firstname=firstname
+		newUser.lastname=lastname
+		newUser.mobile = mobile
+		newUser.address=address
+		newUser.state = state
+		newUser.country = country
+		newUser.save()
+		ret = 'successful'
+	except:
+		try:
+			newUser.delete()
+		except:
+			pass
+		ret = 'failed'
+	return Response(ret)
 
 @api_view(('POST',))
 @renderer_classes((JSONRenderer,))
