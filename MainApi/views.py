@@ -41,7 +41,7 @@ def getUser(request):
 @permission_classes([])
 def CreateUser(request):
 	data = request.body
-	print(date)
+	print(data)
 #	username = username.lower()
 #	try:
 #		newUser = user.objects.create_user(username=username,password=password)
