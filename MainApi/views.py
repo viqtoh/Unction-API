@@ -69,12 +69,8 @@ def CreateUser(request):
 		newUser.country = country
 		newUser.save()
 		ret = 'successful'
-	except:
-		try:
-			newUser.delete()
-		except:
-			pass
-		ret = 'failed'
+	except IntegrityError:
+		ret = 'username'
 	return Response(ret)
 
 @api_view(('POST',))
