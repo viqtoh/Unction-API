@@ -13,6 +13,7 @@ from rest_framework.decorators import api_view, renderer_classes, authentication
 from rest_framework.renderers import JSONRenderer, TemplateHTMLRenderer
 from rest_framework.authtoken.models import Token
 from django.core.exceptions import ObjectDoesNotExist
+from django.db import IntegrityError
 from datetime import datetime
 import json
 
