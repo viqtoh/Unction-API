@@ -43,7 +43,7 @@ def getUser(request):
 @permission_classes([])
 def CreateUser(request):
 	data = request.body
-	date = json.loads(data)
+	data = json.loads(data)
 	date = data['date']
 	date = datetime.strptime(date, '%Y-%m-%d').date()
 	username = data['username']
