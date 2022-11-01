@@ -37,26 +37,30 @@ def getUser(request):
 		
 @api_view(('POST',))
 @renderer_classes((JSONRenderer,))
-def CreateUser(request,username,password,firstname,lastname,mobile,address,state,country):
-	username = username.lower()
-	try:
-		newUser = user.objects.create_user(username=username,password=password)
-		newUser.save()
-		newUser.firstname=firstname
-		newUser.lastname=lastname
-		newUser.mobile = mobile
-		newUser.address=address
-		newUser.state = state
-		newUser.country = country
-		newUser.save()
-		ret = 'successful'
-	except:
-		try:
-			newUser.delete()
-		except:
-			pass
-		ret = 'failed'
-	return Response(ret)
+@authentication_classes([])
+@permission_classes([])
+def CreateUser(request):
+	data = request.body
+	print(date)
+#	username = username.lower()
+#	try:
+#		newUser = user.objects.create_user(username=username,password=password)
+#		newUser.save()
+#		newUser.firstname=firstname
+#		newUser.lastname=lastname
+#		newUser.mobile = mobile
+#		newUser.address=address
+#		newUser.state = state
+#		newUser.country = country
+#		newUser.save()
+#		ret = 'successful'
+#	except:
+#		try:
+#			newUser.delete()
+#		except:
+#			pass
+#		ret = 'failed'
+#	return Response(ret)
 
 @api_view(('POST',))
 @renderer_classes((JSONRenderer,))
