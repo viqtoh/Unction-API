@@ -25,12 +25,15 @@ class DataViewSet(viewsets.ModelViewSet):
 def getUser(request):
 	token='null'
 	token = request.META.get('HTTP_AUTHORIZATION')
+	token = token[6:]
+	print(token)
+	print 
 	try:
 		Iuser = Token.objects.get(key=token).user
 		serialized = UserSerializer(Iuser)
 		return Response(serialized.data)
 	except ObjectDoesNotExist:
-		return Response(token +'no')
+		return Response('no')
 		
 @api_view(('POST',))
 @renderer_classes((JSONRenderer,))
