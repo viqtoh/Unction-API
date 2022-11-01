@@ -13,6 +13,8 @@ from rest_framework.decorators import api_view, renderer_classes, authentication
 from rest_framework.renderers import JSONRenderer, TemplateHTMLRenderer
 from rest_framework.authtoken.models import Token
 from django.core.exceptions import ObjectDoesNotExist
+from datetime import datetime
+import json
 
 
 class DataViewSet(viewsets.ModelViewSet):
@@ -41,7 +43,18 @@ def getUser(request):
 @permission_classes([])
 def CreateUser(request):
 	data = request.body
-	print(data)
+	date = json.loads(data)
+	date = data['date']
+	date = datetime.strptime(date, '%Y-%m-%d').date()
+	username = data['username']
+	password = data['password']
+	firstname = data['firstname']
+	lastname= data['lastname']
+	mobile = data['mobile']
+	address = data['address']
+	state = data['state']
+	country = data['country']
+
 #	username = username.lower()
 #	try:
 #		newUser = user.objects.create_user(username=username,password=password)
@@ -60,7 +73,7 @@ def CreateUser(request):
 #		except:
 #			pass
 #		ret = 'failed'
-#	return Response(ret)
+	return Response(data)
 
 @api_view(('POST',))
 @renderer_classes((JSONRenderer,))
