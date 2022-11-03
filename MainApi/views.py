@@ -44,12 +44,12 @@ def updateUser(request):
 	token = token[6:]
 	data = request.body
 	data = json.loads(data)
-	try:
-		Iuser = Token.objects.get(key=token).user
-		serialized = UserSerializer(instance = Iuser, data =data)
+	Iuser = Token.objects.get(key=token).user
+	serialized = UserSerializer(instance = Iuser, data =data)
+	if serialized.is_valid:
 		serialized.save()
 		return Response(serialized.data)
-	except ObjectDoesNotExist:
+	else:
 		return Response('no')
 		
 @api_view(('POST',))
