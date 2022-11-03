@@ -46,7 +46,7 @@ def updateUser(request):
 	data = json.loads(data)
 	Iuser = Token.objects.get(key=token).user
 	serialized = UserSerializer(instance = Iuser, data =data)
-	if serialized.is_valid:
+	if serialized.is_valid():
 		serialized.save()
 		return Response(serialized.data)
 	else:
