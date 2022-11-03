@@ -46,7 +46,8 @@ def updateUser(request):
 	data = json.loads(data)
 	try:
 		Iuser = Token.objects.get(key=token).user
-		serialized = UserSerializer.update(Iuser,data)
+		serialized = UserSerializer(instance = Iuser, data =data)
+		serialized.save()
 		return Response(serialized.data)
 	except ObjectDoesNotExist:
 		return Response('no')

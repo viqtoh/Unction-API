@@ -29,7 +29,6 @@ class UserSerializer(serializers.Serializer):
         """
         Update and return an existing `Snippet` instance, given the validated data.
         """
-        instance.username = validated_data.get('username', instance.username)
         instance.firstname = validated_data.get('firstname', instance.firstname)
         instance.lastname = validated_data.get('lastname', instance.lastname)
         instance.DOB = validated_data.get('DOB', instance.DOB)
