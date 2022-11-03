@@ -29,11 +29,24 @@ def getUser(request):
 	token='null'
 	token = request.META.get('HTTP_AUTHORIZATION')
 	token = token[6:]
-	print(token)
-	print 
 	try:
 		Iuser = Token.objects.get(key=token).user
 		serialized = UserSerializer(Iuser)
+		return Response(serialized.data)
+	except ObjectDoesNotExist:
+		return Response('no')
+
+@api_view(('POST',))
+@renderer_classes((JSONRenderer,))
+def updateUser(request):
+	token='null'
+	token = request.META.get('HTTP_AUTHORIZATION')
+	token = token[6:]
+	data = request.body
+	data = json.loads(data)
+	try:
+		Iuser = Token.objects.get(key=token).user
+		serialized = UserSerializer.update(Iuser,data)
 		return Response(serialized.data)
 	except ObjectDoesNotExist:
 		return Response('no')
