@@ -9,14 +9,15 @@ class DataSerializer(serializers.HyperlinkedModelSerializer):
 
 class UserSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
-    username = serializers.CharField(required=False, allow_blank=True, max_length=100)
-    firstname = serializers.CharField(required=False, allow_blank=True, max_length=100)
-    lastname = serializers.CharField(required=False, allow_blank=True, max_length=100)
+    username = serializers.CharField(required=False, allow_blank=True, max_length=255)
+    firstname = serializers.CharField(required=False, allow_blank=True, max_length=255)
+    lastname = serializers.CharField(required=False, allow_blank=True, max_length=255)
+    email = serializers.CharField(required=False, allow_blank=True,max_length=255)
     DOB = serializers.DateField(required=False)
-    mobile = serializers.CharField(required=False, allow_blank=True, max_length=100)
-    address = serializers.CharField(required=False, allow_blank=True, max_length=100)
-    state = serializers.CharField(required=False, allow_blank=True, max_length=100)
-    country = serializers.CharField(required=False, allow_blank=True, max_length=100)
+    mobile = serializers.CharField(required=False, allow_blank=True, max_length=255)
+    address = serializers.CharField(required=False, allow_blank=True, max_length=255)
+    state = serializers.CharField(required=False, allow_blank=True, max_length=255)
+    country = serializers.CharField(required=False, allow_blank=True, max_length=255)
 
     def create(self, validated_data):
         """
@@ -32,6 +33,7 @@ class UserSerializer(serializers.Serializer):
         instance.firstname = validated_data.get('firstname', instance.firstname)
         instance.lastname = validated_data.get('lastname', instance.lastname)
         instance.DOB = validated_data.get('DOB', instance.DOB)
+        instance.email = validated_data.get('email',instance.email)
         instance.mobile = validated_data.get('mobile', instance.mobile)
         instance.address = validated_data.get('address',instance.address)
         instance.state = validated_data.get('state',instance.state)
